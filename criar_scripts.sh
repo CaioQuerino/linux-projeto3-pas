@@ -25,7 +25,7 @@ baixar_aplicacao_repositorio() {
   # Verifica se o diretório foi criado corretamente
   if [ -d "/tmp/inecs-main" ]; then
     cd /tmp/inecs-main
-    npm i
+    npm i build
     npm run build
   else
     echo "Erro: Diretório /tmp/inecs-main não encontrado!"
