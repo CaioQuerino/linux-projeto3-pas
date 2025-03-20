@@ -63,7 +63,7 @@ sudo ./apagar_arqvs_para_testar.sh
 - **Atualização do Sistema:** Atualiza os pacotes do sistema.
 - **Instalação de Pacotes:** Instala o Apache2, Unzip, Node.js e npm.
 - **Download da Aplicação:** Baixa a aplicação web de um repositório GitHub e a descompacta.
-- **Build da Aplicação:** Instala as dependências da aplicação e realiza o build.
+- **Build da Aplicação:** Instala o build para gerar a pasta dist.
 - **Cópia dos Arquivos:** Copia os arquivos da aplicação para o diretório do Apache.
 
 ### **3. `apagar_arqvs_para_testar.sh`**
