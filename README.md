@@ -13,7 +13,7 @@ O projeto contém três scripts principais:
 - Atualiza o sistema.
 - Instala o Apache2, Unzip, Node.js e npm.
 - Baixa uma aplicação web de um repositório GitHub.
-- Instala as dependências da aplicação e realiza o build.
+- Instala o build para gerar a pasta dist.
 - Copia os arquivos da aplicação para o diretório padrão do Apache.
 
 ### 3. `apagar_arqvs_para_testar.sh`
