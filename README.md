@@ -58,7 +58,7 @@ docker run -d --name deploy-inecs deploy-inecs
 
 ### 🔹 3. Copiar Arquivos do Container para o Host
 ```bash
-sudo docker cp deploy-inecs:/var/www/html/* /var/www/html/
+sudo docker cp deploy-inecs:/var/www/html/ /var/www/html/
 ```
 
 ## 📜 Detalhes dos Scripts
