@@ -1,87 +1,101 @@
-# Provisionamento de Servidor Web com Node.js e Apache
+# Provisionamento de Servidor Web com Node.js
 
-Este projeto contém scripts Bash para automatizar a configuração de um servidor web Linux, incluindo a instalação do Apache, Node.js e a implantação de uma aplicação web. O objetivo é facilitar a configuração e o provisionamento do ambiente web de maneira rápida e eficiente.
+Este projeto automatiza o provisionamento de um servidor web no Linux usando scripts Bash. Ele inclui a instalação do Apache, Node.js e npm, além do download e implantação de uma aplicação web hospedada no GitHub.
 
-## Estrutura do Projeto
-O projeto inclui três scripts principais:
+## 📌 Funcionalidades
+- Atualização do sistema operacional.
+- Instalação dos pacotes necessários (Apache, Node.js, npm, etc.).
+- Download e construção da aplicação web.
+- Implantação automática no servidor Apache.
+- Script de limpeza para reconfiguração ou testes.
 
-1. **`criar_scripts.sh`** - Gera os scripts de provisionamento e limpeza e os torna executáveis.
-2. **`provisionar_servidor_web.sh`** - Configura o servidor, instala pacotes necessários e implanta a aplicação.
-3. **`apagar_arqvs_para_testar.sh`** - Remove os arquivos e diretórios criados para testes.
-
-## Estrutura de Diretórios Criada
-Após a execução do script `provisionar_servidor_web.sh`, a seguinte estrutura será criada:
+## 📂 Estrutura do Projeto
 ```
-/tmp/inecs-main/   # Diretório temporário onde a aplicação é baixada, descompactada e construída.
-/var/www/html/      # Diretório padrão do Apache onde os arquivos da aplicação são copiados.
+/
+├── criar_scripts.sh                # Criação dos scripts de provisionamento e limpeza
+├── Dockerfile                      # Configuração do container Docker
+├── requirements.txt                 # Lista de pacotes necessários
+└── README.md                        # Documentação do projeto
 ```
 
-## Pré-requisitos
-- Sistema operacional Linux.
+## 🚀 Como Usar
+
+### 📌 Pré-requisitos
+- Linux instalado e acesso ao terminal.
 - Permissões de superusuário (`sudo`).
-- Docker instalado (opcional, se for executar via container).
+- Docker (caso queira executar o provisionamento via container).
 
-## Como Usar
-
-### 1. Criar os Scripts
-Execute o script `criar_scripts.sh` para gerar os scripts necessários:
+### 🔹 1. Criar os Scripts
+Execute o script `criar_scripts.sh` para gerar os scripts de provisionamento e limpeza:
 ```bash
 bash criar_scripts.sh
 ```
 
-### 2. Executar o Script de Provisionamento
-Execute o script para configurar o servidor e implantar a aplicação:
+### 🔹 2. Executar o Provisionamento
+Para configurar o servidor e implantar a aplicação, execute:
 ```bash
 sudo ./provisionar_servidor_web.sh
 ```
 
-### 3. Para Limpar o Ambiente
-Se precisar remover os arquivos e diretórios criados, execute:
+### 🔹 3. Limpar o Ambiente (Opcional)
+Caso precise resetar o ambiente para novos testes:
 ```bash
 sudo ./apagar_arqvs_para_testar.sh
 ```
 
-## Uso com Docker
-Caso queira executar o processo dentro de um container Docker, siga os passos:
+## 🐳 Uso com Docker
+Se desejar executar o provisionamento dentro de um container, utilize os seguintes comandos:
 
-### 1. Construir a Imagem Docker
+### 🔹 1. Construir a Imagem Docker
 ```bash
 docker build --no-cache -t deploy-inecs .
 ```
 
-### 2. Rodar o Container
+### 🔹 2. Executar o Container
 ```bash
 docker run -d --name deploy-inecs deploy-inecs
 ```
 
-### 3. Copiar os Arquivos do Container para o Host
+### 🔹 3. Copiar Arquivos do Container para o Host
 ```bash
-sudo docker cp <CONTAINER_ID>:/var/www/html/* /var/www/html/
+sudo docker cp deploy-inecs:/var/www/html/* /var/www/html/
 ```
-Substitua `<CONTAINER_ID>` pelo ID real do container em execução.
 
-## Detalhes dos Scripts
+## 📜 Detalhes dos Scripts
 
-### **1. `criar_scripts.sh`**
-- Cria os scripts de provisionamento e limpeza.
+### 1️⃣ `criar_scripts.sh`
+- Cria os scripts `provisionar_servidor_web.sh` e `apagar_arqvs_para_testar.sh`.
 - Torna os scripts executáveis.
 
-### **2. `provisionar_servidor_web.sh`**
-- **Atualiza o sistema**: Executa `apt update` e `apt upgrade`.
-- **Instala pacotes necessários**: Apache2, Unzip, Node.js e npm.
-- **Baixa a aplicação**: Faz o download do repositório do GitHub.
-- **Realiza o build da aplicação**: Instala dependências e gera a pasta `dist`.
-- **Copia os arquivos**: Move os arquivos para `/var/www/html/` para que o Apache sirva a aplicação.
+### 2️⃣ `provisionar_servidor_web.sh`
+- Atualiza os pacotes do sistema.
+- Instala Apache, Unzip, Node.js e npm.
+- Baixa a aplicação web de um repositório GitHub.
+- Realiza o build da aplicação.
+- Copia os arquivos para o diretório do Apache.
 
-### **3. `apagar_arqvs_para_testar.sh`**
-- Remove o diretório da aplicação em `/tmp/`.
+### 3️⃣ `apagar_arqvs_para_testar.sh`
+- Remove a aplicação baixada.
 - Limpa o diretório `/var/www/html/`.
 
-## Permissões
-- O diretório `/var/www/html/` deve ter permissões adequadas para o Apache (`755` para diretórios, `644` para arquivos).
+## 📦 Lista de Pacotes (requirements.txt)
+Os pacotes necessários para execução incluem:
+```text
+python3
+python3-pip
+build-essential
+apache2
+wget
+unzip
+nodejs
+npm
+```
 
-## Contribuição
-Se deseja contribuir para este projeto, sinta-se à vontade para abrir uma issue ou enviar um pull request no repositório.
+## 🤝 Contribuição
+Se deseja contribuir, abra uma issue ou envie um pull request.
 
 ---
+📌 **Autor:** Caio Querino
+
+📌 **Repositório:** https://github.com/CaioQuerino/linux-projeto3-pas/tree/main
 

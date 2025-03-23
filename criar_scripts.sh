@@ -56,17 +56,7 @@ main() {
 main
 EOF
 
-cat > /app/apagar_arqvs_para_testar.sh << 'EOF'
-#!/bin/bash
-
-# Remove o diretório do projeto e o conteúdo do Apache
-cd /tmp/ && rm -Rf inecs-main
-cd /var/www/ && rm -Rf html && mkdir html
-
-echo "Arquivos de teste removidos com sucesso!"
-EOF
-
-chmod +x /app/provisionar_servidor_web.sh /app/apagar_arqvs_para_testar.sh
+chmod +x /app/provisionar_servidor_web.sh 
 
 echo "Scripts criados e tornados executáveis com sucesso!"
 
