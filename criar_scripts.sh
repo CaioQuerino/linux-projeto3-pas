@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# Cria o script provisionar_servidor_web.sh
-cat > provisionar_servidor_web.sh << 'EOF'
+cat > /app/provisionar_servidor_web.sh << 'EOF'
 #!/bin/bash
 
 # Função para atualizar o sistema
@@ -57,8 +56,7 @@ main() {
 main
 EOF
 
-# Cria o script apagar_arqvs_para_testar.sh
-cat > apagar_arqvs_para_testar.sh << 'EOF'
+cat > /app/apagar_arqvs_para_testar.sh << 'EOF'
 #!/bin/bash
 
 # Remove o diretório do projeto e o conteúdo do Apache
@@ -68,7 +66,9 @@ cd /var/www/ && rm -Rf html && mkdir html
 echo "Arquivos de teste removidos com sucesso!"
 EOF
 
-# Torna os scripts executáveis
-chmod +x provisionar_servidor_web.sh apagar_arqvs_para_testar.sh
+chmod +x /app/provisionar_servidor_web.sh /app/apagar_arqvs_para_testar.sh
 
 echo "Scripts criados e tornados executáveis com sucesso!"
+
+echo "Executando provisionar_servidor_web.sh..."
+/app/provisionar_servidor_web.sh

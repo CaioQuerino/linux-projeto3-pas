@@ -1,79 +1,87 @@
-# Linux - Projeto 3: Provisionamento de Servidor Web com Node.js
+# Provisionamento de Servidor Web com Node.js e Apache
 
-Este projeto consiste em scripts Bash para automatizar a configuração de um servidor web no Linux, incluindo a instalação do Apache, Node.js, e a implantação de uma aplicação web. O objetivo é facilitar o provisionamento de um ambiente web completo, desde a instalação dos pacotes necessários até a implantação da aplicação.
+Este projeto contém scripts Bash para automatizar a configuração de um servidor web Linux, incluindo a instalação do Apache, Node.js e a implantação de uma aplicação web. O objetivo é facilitar a configuração e o provisionamento do ambiente web de maneira rápida e eficiente.
 
-## Scripts
-O projeto contém três scripts principais:
+## Estrutura do Projeto
+O projeto inclui três scripts principais:
 
-### 1. `criar_scripts.sh`
-- Cria os scripts `provisionar_servidor_web.sh` e `apagar_arqvs_para_testar.sh`.
-- Torna os scripts executáveis.
+1. **`criar_scripts.sh`** - Gera os scripts de provisionamento e limpeza e os torna executáveis.
+2. **`provisionar_servidor_web.sh`** - Configura o servidor, instala pacotes necessários e implanta a aplicação.
+3. **`apagar_arqvs_para_testar.sh`** - Remove os arquivos e diretórios criados para testes.
 
-### 2. `provisionar_servidor_web.sh`
-- Atualiza o sistema.
-- Instala o Apache2, Unzip, Node.js e npm.
-- Baixa uma aplicação web de um repositório GitHub.
-- Instala o build para gerar a pasta dist.
-- Copia os arquivos da aplicação para o diretório padrão do Apache.
-
-### 3. `apagar_arqvs_para_testar.sh`
-- Remove os arquivos e diretórios criados durante o provisionamento.
-- Útil para limpar o ambiente após testes ou quando a infraestrutura não é mais necessária.
-
-## Estrutura de Diretórios
-O script `provisionar_servidor_web.sh` cria a seguinte estrutura de diretórios:
+## Estrutura de Diretórios Criada
+Após a execução do script `provisionar_servidor_web.sh`, a seguinte estrutura será criada:
 ```
 /tmp/inecs-main/   # Diretório temporário onde a aplicação é baixada, descompactada e construída.
 /var/www/html/      # Diretório padrão do Apache onde os arquivos da aplicação são copiados.
 ```
 
+## Pré-requisitos
+- Sistema operacional Linux.
+- Permissões de superusuário (`sudo`).
+- Docker instalado (opcional, se for executar via container).
+
 ## Como Usar
 
-### **Pré-requisitos**
-- Sistema operacional Linux.
-- Permissões de superusuário (`sudo`) para executar os scripts.
-
-### **Passos**
-
-#### **1. Criar os Scripts**
-Execute o script `criar_scripts.sh` para gerar os scripts de provisionamento e limpeza:
+### 1. Criar os Scripts
+Execute o script `criar_scripts.sh` para gerar os scripts necessários:
 ```bash
 bash criar_scripts.sh
 ```
 
-#### **2. Executar o Script de Provisionamento**
-Execute o script `provisionar_servidor_web.sh` para configurar o servidor e implantar a aplicação:
+### 2. Executar o Script de Provisionamento
+Execute o script para configurar o servidor e implantar a aplicação:
 ```bash
 sudo ./provisionar_servidor_web.sh
 ```
 
-#### **3. Para Limpar o Ambiente**
-Execute o script `apagar_arqvs_para_testar.sh` para remover os arquivos e diretórios criados:
+### 3. Para Limpar o Ambiente
+Se precisar remover os arquivos e diretórios criados, execute:
 ```bash
 sudo ./apagar_arqvs_para_testar.sh
 ```
 
+## Uso com Docker
+Caso queira executar o processo dentro de um container Docker, siga os passos:
+
+### 1. Construir a Imagem Docker
+```bash
+docker build --no-cache -t deploy-inecs .
+```
+
+### 2. Rodar o Container
+```bash
+docker run -d --name deploy-inecs deploy-inecs
+```
+
+### 3. Copiar os Arquivos do Container para o Host
+```bash
+sudo docker cp <CONTAINER_ID>:/var/www/html/* /var/www/html/
+```
+Substitua `<CONTAINER_ID>` pelo ID real do container em execução.
+
 ## Detalhes dos Scripts
 
 ### **1. `criar_scripts.sh`**
-- Gera os scripts `provisionar_servidor_web.sh` e `apagar_arqvs_para_testar.sh`.
+- Cria os scripts de provisionamento e limpeza.
 - Torna os scripts executáveis.
 
 ### **2. `provisionar_servidor_web.sh`**
-- **Atualização do Sistema:** Atualiza os pacotes do sistema.
-- **Instalação de Pacotes:** Instala o Apache2, Unzip, Node.js e npm.
-- **Download da Aplicação:** Baixa a aplicação web de um repositório GitHub e a descompacta.
-- **Build da Aplicação:** Instala o build para gerar a pasta dist.
-- **Cópia dos Arquivos:** Copia os arquivos da aplicação para o diretório do Apache.
+- **Atualiza o sistema**: Executa `apt update` e `apt upgrade`.
+- **Instala pacotes necessários**: Apache2, Unzip, Node.js e npm.
+- **Baixa a aplicação**: Faz o download do repositório do GitHub.
+- **Realiza o build da aplicação**: Instala dependências e gera a pasta `dist`.
+- **Copia os arquivos**: Move os arquivos para `/var/www/html/` para que o Apache sirva a aplicação.
 
 ### **3. `apagar_arqvs_para_testar.sh`**
-- **Limpeza de Diretórios:** Remove o diretório da aplicação em `/tmp/` e limpa o diretório `/var/www/html/`.
+- Remove o diretório da aplicação em `/tmp/`.
+- Limpa o diretório `/var/www/html/`.
 
 ## Permissões
-- **Diretório `/var/www/html/`**: Permissões padrão do Apache (geralmente `755` para diretórios e `644` para arquivos).
+- O diretório `/var/www/html/` deve ter permissões adequadas para o Apache (`755` para diretórios, `644` para arquivos).
 
 ## Contribuição
-Se você deseja contribuir para este projeto, sinta-se à vontade para abrir uma issue ou enviar um pull request.
+Se deseja contribuir para este projeto, sinta-se à vontade para abrir uma issue ou enviar um pull request no repositório.
 
 ---
 
