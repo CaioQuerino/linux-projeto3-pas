@@ -12,6 +12,7 @@ Este projeto automatiza o provisionamento de um servidor web no Linux usando scr
 ## 📂 Estrutura do Projeto
 ```
 /
+├── apagar_arqvs_para_testar.sh     # Limpa os diretórios 
 ├── criar_scripts.sh                # Criação dos scripts de provisionamento e limpeza
 ├── Dockerfile                      # Configuração do container Docker
 ├── requirements.txt                 # Lista de pacotes necessários
